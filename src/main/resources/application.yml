@@ -1,0 +1,15 @@
+server:
+  port: 8080
+  
+hsbc:
+  hive:
+    connectionURL: jdbc:hive2://192.168.37.128:10000/default
+    username: root
+    password: sa685017
+  kerberos:
+    keyTabLocation: ~/Security/mourya.keytab
+    krb5Location: ~/krb5.conf
+    priniciple: mourya@ATHENA.MIT.EDU
+    
+    
+    
