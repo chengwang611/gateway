@@ -29,12 +29,12 @@ public class SampleHiveController {
 	
 
 	@RequestMapping(value = "/showTables/{schemaName}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Response> showTables(@PathVariable String schemaName) {
-		//List<Map<String, Object>> rows = null;
-		//jdbcTemplate.execute("use " + schemaName);
-		//rows = jdbcTemplate.queryForList("show tables");
+	public ResponseEntity<List<Map<String, Object>>> showTables(@PathVariable String schemaName) {
+		List<Map<String, Object>> rows = null;
+		jdbcTemplate.execute("use " + schemaName);
+		rows = jdbcTemplate.queryForList("show tables");
 
-		return new ResponseEntity<Response>(dao.getTables(schemaName), HttpStatus.OK);
+		return new ResponseEntity<List<Map<String, Object>>>(rows, HttpStatus.OK);
 	}
 	
 //	@RequestMapping(value = "/2/{schemaName}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -54,28 +54,28 @@ public class SampleHiveController {
 	
 	
 	@RequestMapping(value = "/showColumns/{schemaName}/{tableName}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Response> showTableColumns(@PathVariable String schemaName,@PathVariable String tableName) {
-//		List<Map<String, Object>> rows = null;
-//		jdbcTemplate.execute("use " + schemaName);
-//		rows = jdbcTemplate.queryForList("describe "+schemaName+"."+tableName);
+	public ResponseEntity<List<Map<String, Object>>> showTableColumns(@PathVariable String schemaName,@PathVariable String tableName) {
+		List<Map<String, Object>> rows = null;
+		jdbcTemplate.execute("use " + schemaName);
+		rows = jdbcTemplate.queryForList("describe "+schemaName+"."+tableName);
 
-		return new ResponseEntity<Response>(dao.getTableColumns(schemaName, tableName), HttpStatus.OK);
+		return new ResponseEntity<List<Map<String, Object>>>(rows, HttpStatus.OK);
 	}
 	
-//	
-//	@RequestMapping(value = "/list/{schemaName}/{tableName}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-//	public ResponseEntity<List<Map<String, Object>>> ListTable(@PathVariable String schemaName,@PathVariable String tableName) {
-//		List<Map<String, Object>> rows = null;
-//		jdbcTemplate.execute("use " + schemaName);
-//		rows = jdbcTemplate.queryForList("select * from "+schemaName+"."+tableName);
-//
-//		return new ResponseEntity<List<Map<String, Object>>>(rows, HttpStatus.OK);
-//	}
+	
+	@RequestMapping(value = "/list/{schemaName}/{tableName}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Map<String, Object>>> ListTable(@PathVariable String schemaName,@PathVariable String tableName) {
+		List<Map<String, Object>> rows = null;
+		jdbcTemplate.execute("use " + schemaName);
+		rows = jdbcTemplate.queryForList("select * from "+schemaName+"."+tableName);
+
+		return new ResponseEntity<List<Map<String, Object>>>(rows, HttpStatus.OK);
+	}
 
 	@RequestMapping(value = "/databases", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Response> showDatabaeses() {
-		//List<Map<String, Object>> rows = null;
-		//rows = jdbcTemplate.queryForList("show databases");
-		return new ResponseEntity<Response>( dao.getDataBases(), HttpStatus.OK);
+	public ResponseEntity<List<Map<String, Object>>> showDatabaeses() {
+		List<Map<String, Object>> rows = null;
+		rows = jdbcTemplate.queryForList("show databases");
+		return new ResponseEntity<List<Map<String, Object>>>( rows, HttpStatus.OK);
 	}
 }
